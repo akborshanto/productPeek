@@ -6,8 +6,10 @@ export default {
   ],
   theme: {
     extend: {},
+  
     daisyui: {
-      themes: ["light", "dark", "nord", "lemonade","fantasy"],
+
+      themes: ["light", "dark", "nord", "lemonade","fantasy","ratro"],
     },
     
   },plugins: [

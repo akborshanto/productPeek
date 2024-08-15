@@ -17,16 +17,28 @@ const handleTheme=()=>{
     to="/"
     className={({ isActive }) =>
       isActive
-        ? "bg-gradient-to-r from-purple-400 to-cyan-600  text-white"
-        : " border  "
+        ? "bg-gradient-to-r from-red-400 to-orange-600  text-white mx-2"
+        : " border border-orange-300  text-red-400 "
     }
   >
     HOME
   </NavLink>
 </li>
+  <li>
+  <NavLink
+    to="/product"
+    className={({ isActive }) =>
+      isActive
+        ? "bg-gradient-to-r from-red-400 to-orange-600 mx-2 text-white"
+        : "border border-orange-300  text-red-400 "
+    }
+  >
+Product
+  </NavLink>
+</li>
   </Fragment>
   return (
-    <div>   <div className="navbar bg-gray-400">
+    <div>   <div className="navbar bg-white-400" >
     <div className="navbar-start">
       <div className="dropdown">
         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -54,7 +66,7 @@ const handleTheme=()=>{
       </div>
       <a className="btn btn-ghost  font-sedan  text-14px md:text-[20px] lg:text-2xl ">
 {/*   <img src={logo} alt="" className="w-8" />
- */}        QUERY PD     
+ */}       PRODUCT_PEEK   
       </a>
     </div>
     <div className="navbar-center hidden lg:flex">
@@ -63,7 +75,7 @@ const handleTheme=()=>{
     <div className="navbar-end">
       <input
         type="checkbox"
-        className="toggle toggle-error"
+        className="toggle toggle-error mx-2"
         onClick={handleTheme}
       />
 
@@ -86,20 +98,20 @@ const handleTheme=()=>{
         <Link to="/login">
           <button
             onClick={handleLogOut}
-            class="cursor-pointer uppercase bg-white font-bold my-6 lg:px-4 lg:py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.5rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] transition  text-black"
+            className=" btn btn-outline cursor-pointer cursor-pointer uppercase bg-orange mx-2 font-bold my-6 lg:px-4 lg:py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.2rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] transition  text-orange-500 border border-orange-300"
           >
             LOGOUT
           </button>
         </Link>
       ) : (
         <Link to="/login">
-          <button class="cursor-pointer uppercase bg-white font-bold my-6 lg:px-4 lg:py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.5rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] transition  text-black">
+          <button className="btn btn-outline cursor-pointer cursor-pointer uppercase bg-orange mx-2 font-bold my-6 lg:px-4 lg:py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.2rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] transition  text-orange-500 border border-orange-400">
             LOGIN
           </button>
         </Link>
       )}
     </div>
-  </div>bar</div>
+  </div></div>
   )
 }
 

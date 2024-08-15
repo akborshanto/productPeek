@@ -5,7 +5,7 @@ import Footer from '../shared/Footer'
 
 const Root = () => {
   return (
-    <div>
+    <div className='container mx-auto' data-theme="ratro">
     <Navbar></Navbar>
     <Outlet></Outlet>
     <Footer></Footer>

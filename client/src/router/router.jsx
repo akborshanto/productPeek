@@ -4,11 +4,14 @@ import Home from "../page/home/Home";
 import Root from "../Root/Root";
 import Login from "../page/login/Login";
 import { Register } from './../page/register/Register';
+import Product from "../page/product/Product";
+import Error from "../page/error/Error";
 
 export const router = createBrowserRouter([
     {
       path: "/",
       element: <Root></Root>,
+      errorElement:<Error></Error>,
 
       /* children */
       children:[
@@ -23,6 +26,10 @@ export const router = createBrowserRouter([
         {
           path:"/register",
           element:<Register></Register>
+        },
+        {
+          path:"/product",
+          element:<Product></Product>
         }
       ]
     },

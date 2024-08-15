@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
@@ -12,6 +12,12 @@ export const Register = () => {
     const email = form.Email.value;
     const img = form.Photo.value;
     const password = form.password.value;
+    console.log(name,email,img,password)
+    if(password.length < 6 ){
+      return toast.error("password must be at least 6 characters")
+    }else{
+      return toast.success("success password")
+    }
   };
   return (
     <div>

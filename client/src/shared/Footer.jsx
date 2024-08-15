@@ -5,9 +5,9 @@ const Footer = () => {
     <div> <footer className="footer p-10 bg-neutral text-neutral-content">
     <aside>
      
-    <button className="btn btn-outline btn-accent  text-14px lg:text2xl "    data-tooltip-id="my-tooltip"
+    <button className="btn btn-outline cursor-pointer uppercase bg-orange mx-2 font-bold my-6 lg:px-4 lg:py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.2rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] transition  text-orange-500 border border-orange-300 "    data-tooltip-id="my-tooltip"
     data-tooltip-content="QUERY"
-    data-tooltip-place="top"> Product-Peek </button>
+    data-tooltip-place="top" > Product-Peek </button>
   <p>Copyright © {new Date().getFullYear()}- All right reserved by Akbor  Shanto</p>
     </aside> 
     <nav>
