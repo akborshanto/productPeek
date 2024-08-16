@@ -1,8 +1,8 @@
 require("dotenv").config();
 const express = require("express");
-const { MongoClient, ServerApiVersion } = require("mongodb");
-const cors = require("cors");
 
+const cors = require("cors");
+const { MongoClient, ServerApiVersion } = require("mongodb");
 const port = process.env.PORT || 5000;
 const app = express();
 const corsOptions = {
@@ -14,7 +14,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 const uri =
-  "mongodb+srv://productPeek:Tiao5gAOoj42SJ4g@cluster1.phei2xm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+  "mongodb+srv://productPeek:Ni5ZjLKbRROqoJzR@cluster1.phei2xm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -28,7 +28,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    //await client.connect();
     const productCollection = client.db("porductPeek").collection("product");
     /* inser may  */
 
@@ -438,29 +438,48 @@ const products=[
 ]
 const result= await productCollection.insertMany(products)
 
+app.get('/allProduct',async(req,res)=>{
+
+const result=await productCollection.find().toArray()
+
+res.send(result)
+
+})
 
 
+/* electronic */
+app.get('/electronic',async(req,res)=>{
 
-app.get('/productItem',async (req,res)=>{
-try{
-  const singleProduct=await productCollection.find().toArray()
-
-  res.status(200).json(singleProduct);
-}catch(err){
-
-  console.error(err);
-  res.status(500).json({ error: 'Failed to fetch products' });
-}
+const result=await productCollection.find({category:"Electronics"}).toArray()
+res.send(result)
 
 
 })
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.get('/Grocery',async(req,res)=>{
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+const result=await productCollection.find({category:"Grocery"}).limit(10).toArray()
+res.send(result)
+
+
+})
+app.get('/Furniture',async(req,res)=>{
+
+const result=await productCollection.find({category:"Furniture"}).limit(10).toArray()
+res.send(result)
+
+
+})
+app.get('/Makeup',async(req,res)=>{
+
+const result=await productCollection.find({category:"Makeup"}).limit(10).toArray()
+res.send(result)
+
+
+})
+
+
+
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
@@ -469,7 +488,14 @@ app.listen(port, () => {
     );
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+   // await client.close();
   }
 }
 run().catch(console.dir);
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
