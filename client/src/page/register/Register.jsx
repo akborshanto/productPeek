@@ -6,7 +6,9 @@ import { AuthContext } from "../../authentication/UseContext";
 
 export const Register = () => {
   const [show, setShow] = useState(false);
-  const { createUser ,updateProfiles} = useContext(AuthContext);
+  const { createUser ,updateProfiles,dummy} = useContext(AuthContext);
+  console.log(createUser)
+  console.log(dummy)
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -14,7 +16,7 @@ export const Register = () => {
     const email = form.Email.value;
     const img = form.Photo.value;
     const password = form.password.value;
-    console.log(name, email, img, password);
+    //console.log(name, email, img, password);
     if (password.length < 6) {
       return toast.error("password must be at least 6 characters");
     } else {

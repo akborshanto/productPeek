@@ -1,22 +1,24 @@
 import React, { createContext, useEffect, useState } from "react";
 import {
-
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { app } from './../firebase/firebase.config';
+import { app } from "./../firebase/firebase.config";
 export const AuthContext = createContext();
-const UseContext = ({ children }) => {
+const UserContext = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   console.log(user);
-  const auth=getAuth(app)
+  const auth = getAuth(app);
   const createUser = (email, password) => {
+    console.log(email,password)
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
+  const dummy="lorem askfjaslkfjsalkfjasldk"
 
   const updateProfiles = (name, img) => {
     setLoading(true);
@@ -50,7 +52,13 @@ const UseContext = ({ children }) => {
     user,
     createUser,
     updateProfiles,
+    dummy
   };
+
+
+  const googleLogin=()=>{
+    return signInWithPopup()
+  }
   return (
     <div>
       <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
@@ -58,4 +66,4 @@ const UseContext = ({ children }) => {
   );
 };
 
-export default UseContext;
+export default UserContext;

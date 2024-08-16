@@ -5,14 +5,14 @@ import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './router/router.jsx'
 import toast, { Toaster } from 'react-hot-toast';
-import UseContext from './authentication/UseContext.jsx'
+import UserContext from './authentication/UseContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-  <UseContext>
+  <UserContext>
   <Toaster></Toaster>
   <RouterProvider router={router}></RouterProvider>
-  </UseContext>
+  </UserContext>
 
   </StrictMode>,
 )
