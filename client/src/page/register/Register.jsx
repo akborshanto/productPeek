@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../authentication/UseContext";
 
 export const Register = () => {
-    const [show,setShow]=useState(false)
+  const [show, setShow] = useState(false);
+  const { createUser ,updateProfiles} = useContext(AuthContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -12,21 +14,29 @@ export const Register = () => {
     const email = form.Email.value;
     const img = form.Photo.value;
     const password = form.password.value;
-    console.log(name,email,img,password)
-    if(password.length < 6 ){
-      return toast.error("password must be at least 6 characters")
-    }else{
-      return toast.success("success password")
+    console.log(name, email, img, password);
+    if (password.length < 6) {
+      return toast.error("password must be at least 6 characters");
+    } else {
+      return toast.success("success password");
     }
+
+    createUser(email, password)
+    .then((res) => {
+      updateProfiles(name,img)
+      .then(res=>console.log(res.user))
+      .catch(err=>console.log(err))
+      toast.success("SUCCESFULLY REGESTER");
+    })
+    .catch((err) => console.log(err));
   };
   return (
     <div>
       {" "}
       <div>
         <Toaster />
- 
+
         <div className="w-full max-w-md p-8 space-y-3 rounded-xl  bg-[#6ab8b4] text-white mx-auto my-8">
-      
           <h1 className="text-2xl font-bold text-center">
             Register Your Account
           </h1>
@@ -79,7 +89,7 @@ export const Register = () => {
               Password
               <label className="input input-bordered flex items-center gap-2 text-black">
                 <p onClick={() => setShow(!show)}>
-                  {show ? <FaEye/> : <FaEyeSlash />}
+                  {show ? <FaEye /> : <FaEyeSlash />}
                 </p>
 
                 <input
