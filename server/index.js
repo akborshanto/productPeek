@@ -500,9 +500,13 @@ async function run() {
         .toArray()
 
 
+  
+    });
+    app.get('/productCount',async(req,res)=>{
       const count = await productCollection.estimatedDocumentCount();
       res.send({ count });
-    });
+
+    })
 
     /* all product */
     app.get("/allProduct", async (req, res) => {
