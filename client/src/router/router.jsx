@@ -29,7 +29,8 @@ export const router = createBrowserRouter([
         },
         {
           path:"/product",
-          element:<Product></Product>
+          element:<Product></Product>,
+          loader:()=>fetch('https://productpeek-rust.vercel.app/productCount')
         }
       ]
     },

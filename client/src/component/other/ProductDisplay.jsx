@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useAxiosPublic from "../../hook/AxiosInstance";
 import Card from "./../Card";
+import { Loading } from "../shared/Loading";
 
 export const ProductDisplay = () => {
     
@@ -12,23 +13,31 @@ export const ProductDisplay = () => {
   const [electronic, setElectronic] = useState(null);
   /* gricert */
   useEffect(() => {
+    setLoading(true)
     axiosPublic
       .get("/Grocery")
-      .then((res) => setGrocery(res.data))
+      .then((res) => {setGrocery(res.data) ,setLoading(false)})
       .catch((err) => console.log(err));
   }, []);
   useEffect(() => {
+    setLoading(true)
     axiosPublic
       .get("/MakeUp")
-      .then((res) => setMakeUp(res.data))
+      .then((res) => {
+        setMakeUp(res.data)
+        setLoading(false)
+      })
       .catch((err) => console.log(err));
   }, []);
   {/* funniture */}
   useEffect(() => {
- 
+ setLoading(true)
     axiosPublic
       .get("/Furniture")
-      .then((res) => setFurniture(res.data))
+      .then((res) => {setFurniture(res.data)
+setLoading(false)
+
+      })
       .catch((err) => console.log(err));
   }, []);
   useEffect(() => {
@@ -39,7 +48,9 @@ export const ProductDisplay = () => {
   }, []);
 
 
-
+if(loading){
+  return <Loading></Loading>
+}
   return (
     <div className="px-4 py-6 bg-[#FF2279]/15 mt-10">
     {/* grocery */}
