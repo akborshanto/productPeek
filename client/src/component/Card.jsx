@@ -2,14 +2,14 @@
 import { Button } from './shared/Button';
 
 const Card = ({ data }) => {
-  const { productImage, description, price, productName, brand, productCreationDate } = data;
+  const { productImage, description, price, productName, brand, productCreationDate } = data || {};
   return (
     <div>
       <div className="p-4 bg-[#fff] rounded-2xl flex flex-col justify-between gap-5 lg:h-[450px] "> {/* Set fixed height here */}
         <div className="h-44 relative">
           <div className="absolute flex justify-between w-full">
             <p className="bg-[#403EFB] px-3 py-2 rounded-full text-white font-bold text-xs">
-              {productCreationDate.slice(0,10)}
+              {productCreationDate?.slice(0,10)}
             </p>
             <p className="text-rose-500 px-3 py-2 rounded-full bg-gray-200/15 font-bold text-xs">
               {brand}

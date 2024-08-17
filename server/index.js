@@ -29,7 +29,7 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     //await client.connect();
-    const productCollection = client.db("porductPeek").collection("product");
+    const productCollection = client.db("ProductPeek").collection("product");
     /* inser may  */
 
     /* insert all data in Product collection */
@@ -485,10 +485,28 @@ async function run() {
         brand: "ColorPop",
       },
     ];
-    const result = await productCollection.insertMany(products);
+    //  const result = await productCollection.insertMany(products);
 
+    /* pagination */
+
+    app.get("/prduct_pagination", async (req, res) => {
+      //default page1 and limit 10 product
+
+      const { page = 1, limit = 10 } = req.query;
+      const products = await productCollection
+        .find({})
+        .skip((page - 1) * limit)
+        .limit(parseInt(limit))
+        .toArray()
+
+
+      const count = await productCollection.estimatedDocumentCount();
+      res.send({ count });
+    });
+
+    /* all product */
     app.get("/allProduct", async (req, res) => {
-      const result = await productCollection.find().limit(3).toArray();
+      const result = await productCollection.find().toArray();
 
       res.send(result);
     });
