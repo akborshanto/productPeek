@@ -1,19 +1,8 @@
 import React from 'react'
 import { UseTitle } from '../../hook/UseTitle'
-import { ProductCard } from './productCard'
 
 const Product = () => {
-const category=(e)=>{
 
-const category=(e)=>{
-
-  const categoy=e.target.category.value;
-  console.log(category)
-}
-}
-const product=(e)=>{
-console.log("sdaf")
-}
 
   return (
     <div >
@@ -92,8 +81,7 @@ console.log("sdaf")
   
 
 
-    <UseTitle title="dfsafj" desc="dfsa"></UseTitle>
-<ProductCard></ProductCard>
+
     </div>
   )
 }

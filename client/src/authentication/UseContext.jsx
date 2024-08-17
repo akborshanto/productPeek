@@ -6,7 +6,7 @@ import {
   signInWithPopup,
   updateProfile,
 } from "firebase/auth";
-import { app } from "./../firebase/firebase.config";
+import { app } from "../firebase/firebase.config";
 export const AuthContext = createContext();
 const UserContext = ({ children }) => {
   const [user, setUser] = useState(null);

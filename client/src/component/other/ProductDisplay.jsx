@@ -3,7 +3,9 @@ import useAxiosPublic from "../../hook/AxiosInstance";
 import Card from "./../Card";
 
 export const ProductDisplay = () => {
+    
   const axiosPublic = useAxiosPublic();
+  const [loading,setLoading]=useState(true)
   const [Grocery, setGrocery] = useState(null);
   const [MakeUp, setMakeUp] = useState(null);
   const [Furniture, setFurniture] = useState(null);
@@ -23,6 +25,7 @@ export const ProductDisplay = () => {
   }, []);
   {/* funniture */}
   useEffect(() => {
+ 
     axiosPublic
       .get("/Furniture")
       .then((res) => setFurniture(res.data))
