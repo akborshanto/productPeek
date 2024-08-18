@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
         {
           path:"/product",
           element:<Product></Product>,
-          loader:()=>fetch('https://productpeek-rust.vercel.app/productCount')
+          loader:()=>fetch('https://productpeek-rust.vercel.app/pagination')
         }
       ]
     },

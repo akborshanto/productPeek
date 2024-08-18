@@ -9,7 +9,6 @@ const Product = () => {
   const axiosSecure = useAxiosPublic();
   const [loading, setLoading] = useState(true);
   const [pagiData, setPagiData] = useState([]);
-  const { count } = useLoaderData();
 
   const [allProducts, setAllProducts] = useState([]);
 
@@ -65,7 +64,7 @@ const Product = () => {
   ];
 
   {
-    /*  */
+    /*min max   */
   }
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(0);
@@ -80,11 +79,65 @@ const Product = () => {
 
     const PriceFilterRange = allProducts.filter((priceRange) => {
       //if minPirce
-      return priceRange.price >= minPrice && priceRange.price <= maxPrice;
+      return priceRange.price > minPrice && priceRange.price < maxPrice;
     });
 
-    setFilterPrice(PriceFilterRange);
+    setAllProducts(PriceFilterRange);
   };
+  {
+    /* hadnle reselt */
+  }
+  const hadleReset = () => {
+    setSearch("");
+
+    setMaxPrice(0);
+    setMinPrice(0);
+    setSort("");
+  };
+
+  /* oagination */
+  const { count } = useLoaderData();
+  const [itemrPerPage, setItemPerapge] = useState(10);
+  // const pages = [];
+  const numberOfPages = Math.ceil(count / itemrPerPage);
+const [currentPage,setCurrentPage]=useState(0)
+  // for (let i = 1; i < numberOfPages; i++) {
+  //   pages.push(i);
+  // }
+  const pages = [...Array(numberOfPages).keys()];
+  const handlePerPage = (e) => {
+    console.log(e.target.value);
+
+    const val = parseInt(e.target.value);
+    setItemPerapge(val);
+    setCurrentPage(0)
+  };
+
+
+
+const handlePrev=()=>{
+
+  if(currentPage > 0){
+    setCurrentPage(currentPage - 1)
+  }
+}
+
+const handleNext=()=>{
+
+if(currentPage <pages.length){
+  setCurrentPage(currentPage + 1)
+}
+
+}
+
+/* sent the datat to mongoddb */
+useEffect(()=>{
+
+  fetch(`https://productpeek-rust.vercel.app/allProduct?pages=${currentPage}&size=${itemrPerPage}`)
+//axiosSecure.get(`/allProduct?page=${currentPage}&size=${itemrPerPage}`)
+.then((res)=> res.json())
+.then(data=>setAllProducts(data))
+},[currentPage,itemrPerPage])
 
   {
     /* loading */
@@ -174,6 +227,13 @@ const Product = () => {
             Apply
           </button>
         </form>
+        <button
+          type="submit"
+          className="btn  btn-error text-white"
+          onClick={hadleReset}
+        >
+          Reset All
+        </button>
       </div>
 
       {/* all product data */}
@@ -181,13 +241,28 @@ const Product = () => {
       <div className="px-4 py-6 bg-[#FF2279]/15 mt-10">
         <h1 className="font-bold text-4xl my-2"> </h1>
         <div className="grid lg:grid-cols-3 gap-4 grid-cols-1 ">
-
-
-
-     {categoryFilter.length > 0 ?  categoryFilter?.map((product) => (
-            <Card key={product._id} data={product} />
-          )) : allProducts?.map(pd=><Card key={pd._id} data={pd}></Card>)}
+          {categoryFilter.length > 0
+            ? categoryFilter?.map((product) => (
+                <Card key={product._id} data={product} />
+              ))
+            : allProducts?.map((pd) => <Card key={pd._id} data={pd}></Card>)}
         </div>
+      </div>
+
+      {/* padination */}
+      <div className="text-center my-6">
+      <h1>{currentPage}</h1>
+      <button onClick={handlePrev} className="btn btn-success">Prev</button>
+        {pages.map((page) => (
+          <button onClick={()=>setCurrentPage(page)} className={`${currentPage === page ? "btn btn-error mx-2 text-white": "btn btn-outline mx-3"}`}>{page}</button>
+        ))}
+<button onClick={handleNext}  className="btn btn-success">Next</button>
+        <select value={itemrPerPage} onChange={handlePerPage}>
+          <option value="5"> 5</option>
+          <option value="10"> 10</option>
+          <option value="20"> 20</option>
+          <option value="50"> 50</option>
+        </select>
       </div>
     </div>
   );

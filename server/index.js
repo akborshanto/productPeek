@@ -496,21 +496,32 @@ async function run() {
       const products = await productCollection
         .find({})
         .skip((page - 1) * limit)
-        .limit(parseInt(limit))
-        .toArray()
-
-
-  
+        .limit(page)
+        .toArray();
     });
-    app.get('/productCount',async(req,res)=>{
+    app.get("/pagination", async (req, res) => {
+      //const result = await addQuariesCollection.find().toArray();
+      //1.cclg
+      console.log(req.query);
       const count = await productCollection.estimatedDocumentCount();
       res.send({ count });
 
-    })
+      //  res.send(result);
+    });
 
     /* all product */
     app.get("/allProduct", async (req, res) => {
-      const result = await productCollection.find().toArray();
+      console.log(req.query);
+
+      const page = parseInt(req.query.pages);
+      const size = parseInt(req.query.size);
+      console.log(page, size);
+
+      const result = await productCollection
+        .find()
+        .skip(page * size)
+        .limit(size)
+        .toArray();
 
       res.send(result);
     });
