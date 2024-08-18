@@ -96,7 +96,7 @@ const Product = () => {
   };
 
   /* oagination */
-  const { count } = useLoaderData();
+  const { count } = useLoaderData() || {};
   const [itemrPerPage, setItemPerapge] = useState(10);
   // const pages = [];
   const numberOfPages = Math.ceil(count / itemrPerPage);
@@ -147,7 +147,7 @@ useEffect(()=>{
   }
   return (
     <div>
-      <div className="flex justify-start gap-7">
+      <div className="flex flex-col lg:flex-row  justify-center mx-auto gap-3 lg:justify-start lg:gap-7">
         <div className="">
           {/* seacth inpuy */}
           <input

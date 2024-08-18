@@ -484,6 +484,18 @@ async function run() {
         productCreationDate: "2024-08-16T03:00:00Z",
         brand: "ColorPop",
       },
+      {
+        productName: "MakeUp  Brush",
+        productImage:
+          "https://img.freepik.com/free-photo/top-view-arrangement-with-make-up-brushes_23-2148301852.jpg?ga=GA1.1.306506650.1720623851&semt=ais_hybrid",
+        description:
+          "Makeup Brudsh lendable eyeshadow shades for a variety of looks.",
+        price: 119.99,
+        category: "Makeup",
+        ratings: 4.8,
+        productCreationDate: "2024-08-16T03:00:00Z",
+        brand: "ColorPop",
+      },
     ];
     //  const result = await productCollection.insertMany(products);
 
