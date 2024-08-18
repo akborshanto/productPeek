@@ -6,9 +6,18 @@ import { AuthContext } from "../../authentication/UseContext";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-const user=useContext(AuthContext)
-console.log(user)
-  const googleLogin = () => {};
+const {googleLogin}=useContext(AuthContext)
+
+  const googleLogins = () => {
+    
+    googleLogin ()
+    .then((res)=>{
+      console.log(res)
+      toast.success("successfully Google Login")
+    })
+.catch(err=>console.log(err))
+
+  };
   const handleLoging = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -80,7 +89,7 @@ if(password.length < 6 ){
           <button
             aria-label="Log in with Google"
             className="p-3 rounded-sm"
-            onClick={googleLogin}
+            onClick={googleLogins}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

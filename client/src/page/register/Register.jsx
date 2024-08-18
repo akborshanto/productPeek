@@ -2,13 +2,14 @@ import React, { useContext, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+
 import { AuthContext } from "../../authentication/UseContext";
 
 export const Register = () => {
   const [show, setShow] = useState(false);
-  const { createUser ,updateProfiles,dummy} = useContext(AuthContext);
-  console.log(createUser)
-  console.log(dummy)
+  const { name,createUser} = useContext(AuthContext);
+
+console.log(name)
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -16,22 +17,20 @@ export const Register = () => {
     const email = form.Email.value;
     const img = form.Photo.value;
     const password = form.password.value;
+    console.log(email,password)
     //console.log(name, email, img, password);
     if (password.length < 6) {
       return toast.error("password must be at least 6 characters");
-    } else {
-      return toast.success("success password");
+    }  createUser(email,password)
+      .then((user)=>{
+        console.log(user)
+        toast.success("User created successfully")
+      })
+      .catch(err=>console.log(err))
+        
     }
 
-    createUser(email, password)
-    .then((res) => {
-      updateProfiles(name,img)
-      .then(res=>console.log(res.user))
-      .catch(err=>console.log(err))
-      toast.success("SUCCESFULLY REGESTER");
-    })
-    .catch((err) => console.log(err));
-  };
+
   return (
     <div>
       {" "}
