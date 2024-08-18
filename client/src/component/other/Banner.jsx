@@ -12,12 +12,9 @@ const Banner = () => {
                 Mi LED TV 4A PRO 32
               </h1>
               <p className="text-gray-600 text-sm md:text-base md:w-4/5 w-full">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Adipisci iure repellendus neque illo modi repudiandae porro
-                excepturi. Hic, fugiat architecto? Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Error, quam.
+              xiaomi TV offers high-end audio features to deliver a stunning experience. With support for Dolby AudioTM and DTS-HD , powered by 2 x 10W stereo speakers
               </p>
-              <h2 className="md:text-3xl text-2xl text-[#FF2279]">$1234</h2>
+              <h2 className="md:text-3xl text-2xl text-[#FF2279]">$12334</h2>
 
               <div>
                 <Button btnText={"BUY NOW"} path={"/"}/>

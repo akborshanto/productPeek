@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Loading = () => {
   return (
-    <div><div class="animate-pulse flex flex-col items-center gap-4 w-60">
+    <div className=''><div class="animate-pulse flex flex-col items-center  justify-center gap-4 w-60">
     <div>
       <div class="w-48 h-6 bg-slate-400 rounded-md"></div>
       <div class="w-28 h-4 bg-slate-400 mx-auto mt-3 rounded-md"></div>
