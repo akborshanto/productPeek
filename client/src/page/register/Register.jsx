@@ -1,16 +1,17 @@
 import React, { useContext, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../../authentication/UseContext";
 
 export const Register = () => {
   const [show, setShow] = useState(false);
   const { name,createUser} = useContext(AuthContext);
-
+const navigate=useNavigate()
 console.log(name)
   const handleSubmit = (e) => {
+    
     e.preventDefault();
     const form = e.target;
     const name = form.username.value;
@@ -25,6 +26,7 @@ console.log(name)
       .then((user)=>{
         console.log(user)
         toast.success("User created successfully")
+        navigate("/product")
       })
       .catch(err=>console.log(err))
         

@@ -6,7 +6,7 @@ import { AuthContext } from "../../authentication/UseContext";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-const {googleLogin}=useContext(AuthContext)
+const {googleLogin,login,user}=useContext(AuthContext)
 
   const googleLogins = () => {
     
@@ -27,7 +27,25 @@ const {googleLogin}=useContext(AuthContext)
 if(password.length < 6 ){
   return toast.error("password must be at least 6 characters")
 }else{
-  return toast.success("success password")
+
+
+login(email,password)
+.then((res)=>{
+  
+const result=res.user;
+
+if(user){
+  toast.success("success password")
+}
+
+})
+.catch(err=>{console.log(err)
+  toast.error("Password Wrong")
+})
+
+
+
+  
 }
 
   

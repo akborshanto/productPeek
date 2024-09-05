@@ -2,11 +2,12 @@ require("dotenv").config();
 const express = require("express");
 
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const port = process.env.PORT || 5000;
 const app = express();
 const corsOptions = {
   origin: ["https://peekproducts-14eff.web.app", "http://localhost:5173"],
+
   Credentials: true,
   optionSuccessStatus: 200,
 };
@@ -30,6 +31,7 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     //await client.connect();
     const productCollection = client.db("ProductPeek").collection("product");
+    const itemProduct = client.db("ProductPeek").collection("pdItem");
     /* inser may  */
 
     /* insert all data in Product collection */
@@ -497,6 +499,23 @@ async function run() {
         brand: "ColorPop",
       },
     ];
+
+    /* like funtion */
+
+    app.post("/like/:id", async (req, res) => {
+      const { id } = req.params;
+
+      try {
+        const result = await collection.updateOne(
+          { _id: new ObjectId(id) },
+          { $inc: { likes: 1 } }
+        );
+        res.status(200).send(result);
+      } catch (error) {
+        res.status(500).send({ error: "Error updating like count" });
+      }
+    });
+
     //  const result = await productCollection.insertMany(products);
 
     /* pagination */
@@ -508,60 +527,107 @@ async function run() {
       const products = await productCollection
         .find({})
         .skip((page - 1) * limit)
-        .limit(page)
+        .limit(size)
         .toArray();
     });
     app.get("/pagination", async (req, res) => {
       //const result = await addQuariesCollection.find().toArray();
       //1.cclg
-      console.log(req.query);
+      // console.log(req.query);
       const count = await productCollection.estimatedDocumentCount();
       res.send({ count });
 
       //  res.send(result);
     });
 
-    /* all product */
-    app.get("/allProduct", async (req, res) => {
-      console.log(req.query);
+    {
+      /* item component */
+    }
 
-      const page = parseInt(req.query.pages);
-      const size = parseInt(req.query.size);
-      console.log(page, size);
-
-      const result = await productCollection
-        .find()
-        .skip(page * size)
-        .limit(size)
+    app.get("/item-products", async (req, res) => {
+      const searchQuery = req.query.q || "";
+      console.log(searchQuery);
+      const products = await productCollection
+        .find({ name: { $regex: searchQuery, $optins: "i" } })
         .toArray();
-
-      res.send(result);
+      res.send(products);
     });
+
+    /* all product */
+    // app.get("/allProduct", async (req, res) => {
+    //   console.log(req.query);
+
+    //   const page = parseInt(req.query.pages);
+    //   const size = parseInt(req.query.size);
+    //   console.log(page, size);
+
+    //   const result = await productCollection
+    //     .find()
+    //     .skip(page * size)
+
+    //     .toArray();
+
+    //   res.send(result);
+    // });
 
     /* electronic */
     app.get("/electronic", async (req, res) => {
       const result = await productCollection
         .find({ category: "Electronics" })
+        .limit(3)
         .toArray();
       res.send(result);
     });
     app.get("/Grocery", async (req, res) => {
       const result = await productCollection
         .find({ category: "Grocery" })
+        .limit(3)
         .toArray();
       res.send(result);
     });
     app.get("/Furniture", async (req, res) => {
       const result = await productCollection
         .find({ category: "Furniture" })
+        .limit(3)
         .toArray();
       res.send(result);
     });
     app.get("/Makeup", async (req, res) => {
       const result = await productCollection
         .find({ category: "Makeup" })
+        .limit(3)
         .toArray();
       res.send(result);
+    });
+
+    /* =================LIKE AND FUNCTIONALY========== */
+    app.post("/pull-item", async (req, res) => {
+      const { userId, item } = req.body;
+
+      try {
+        const result = await itemProduct.updateOne(
+          { _id: new ObjectId(userId) },
+          { $pull: { item: item } }
+        );
+        res.status(500).send("Error Pulling item");
+      } catch (err) {
+        res.status(500).send("Error Pooping item");
+      }
+    });
+    /* pop */
+    app.post("/pop-item", async (req, res) => {
+      const { userId } = req.body;
+      try {
+        const result = await itemProduct.findOneAndUpdate(
+          { _id: new ObjectId(userId) },
+          { $pop: { items: 1 } },
+          { returnOrgial: false }
+        );
+
+        res.status(200).send(result.value);
+      } catch (eror) {
+        res.status(500).send("errop pulling item");
+      }
     });
 
     // Send a ping to confirm a successful connection

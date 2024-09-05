@@ -2,16 +2,28 @@ import React, { Fragment, useState } from 'react'
 import {Link,NavLink} from 'react-router-dom'
 
 const Navbar = () => {
-const [user,setUser]=useState(false)
+const [user,setUser,logOut]=useState(false)
 const handleLogOut=()=>{
   console.log('asfd')
 }
 const handleTheme=()=>{
-
+console.log("dfsa")
 }
 
 
   const links=<Fragment>
+  <li>
+  <NavLink
+    to="/like"
+    className={({ isActive }) =>
+      isActive
+        ? "bg-gradient-to-r from-red-400 to-orange-600  text-white mx-2"
+        : " border border-orange-300  text-red-400 "
+    }
+  >
+ Like
+  </NavLink>
+</li>
   <li>
   <NavLink
     to="/"
@@ -34,6 +46,18 @@ const handleTheme=()=>{
     }
   >
 Product
+  </NavLink>
+</li>
+  <li>
+  <NavLink
+    to="/item"
+    className={({ isActive }) =>
+      isActive
+        ? "bg-gradient-to-r from-red-400 to-orange-600 mx-2 text-white"
+        : "border border-orange-300  text-red-400 "
+    }
+  >
+Item
   </NavLink>
 </li>
   </Fragment>
@@ -95,20 +119,23 @@ Product
       )}
 
       {user ? (
-        <Link to="/login">
-          <button
-            onClick={handleLogOut}
-            className=" btn btn-outline cursor-pointer cursor-pointer uppercase bg-orange mx-2 font-bold my-6 lg:px-4 lg:py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.2rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] transition  text-orange-500 border border-orange-300"
-          >
-            LOGOUT
-          </button>
-        </Link>
+     
+        <button
+          onClick={logOut()}
+          className=" btn btn-outline cursor-pointer cursor-pointer uppercase bg-orange mx-2 font-bold my-6 lg:px-4 lg:py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.2rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] transition  text-orange-500 border border-orange-300"
+        >
+          LOGOUT
+        </button>
+
+
+
+     
       ) : (
         <Link to="/login">
-          <button className="btn btn-outline cursor-pointer cursor-pointer uppercase bg-orange mx-2 font-bold my-6 lg:px-4 lg:py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.2rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] transition  text-orange-500 border border-orange-400">
-            LOGIN
-          </button>
-        </Link>
+        <button className="btn btn-outline cursor-pointer cursor-pointer uppercase bg-orange mx-2 font-bold my-6 lg:px-4 lg:py-2 active:translate-x-0.5 active:translate-y-0.5 hover:shadow-[0.2rem_0.5rem_#F44336,-0.5rem_-0.5rem_#00BCD4] transition  text-orange-500 border border-orange-400">
+          LOGIN
+        </button>
+      </Link>
       )}
     </div>
   </div></div>

@@ -3,7 +3,7 @@ import React from 'react'
 export const Category = () => {
   return (
     <div>    <div>
-    <div className=" m-auto md:px-10 px-5 grid md:grid-cols-4 grid-cols-1 md:gap-10 gap-2  mt-10">
+    <div className=" m-auto md:px-10 px-5 grid md:grid-cols-3 grid-cols-1 md:gap-10 gap-2  mt-10">
       <div className="flex items-center justify-between px-6 bg-[#FF9C35] rounded-lg py-4">
         <h1 className="lg:text-3xl md:text-2xl text-3xl font-bold text-white uppercase">Grocery</h1>
         <img

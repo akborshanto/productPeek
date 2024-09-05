@@ -1,6 +1,7 @@
 import React from 'react'
 
 export const Loading = () => {
+  
   return (
     <div className=''><div class="animate-pulse flex flex-col items-center  justify-center gap-4 w-60">
     <div>
